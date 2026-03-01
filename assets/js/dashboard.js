@@ -528,13 +528,37 @@ function initNav() {
    INIT
 ═══════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  // Apply saved theme
+  // 1. Apply saved theme
   const savedTheme = localStorage.getItem('eduquest_theme');
   if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
 
+  // 2. تفعيل الـ Active Link الذكي للسايدبار
+  const currentUrl = window.location.href;
+  document.querySelectorAll('.sidebar-link, .nav-link').forEach(link => {
+    const linkUrl = link.href;
+    link.classList.remove('active');
+
+    // الحالة أ: صفحة Browse Courses (فيها browse=1)
+    if (currentUrl.includes('browse=1')) {
+      if (linkUrl.includes('browse=1')) link.classList.add('active');
+    } 
+    // الحالة ب: صفحة My Courses (فيها courses.php بس بدون browse=1)
+    else if (currentUrl.includes('courses.php')) {
+      if (linkUrl.includes('courses.php') && !linkUrl.includes('browse=1')) {
+        link.classList.add('active');
+      }
+    } 
+    // الحالة ج: باقي الصفحات (Dashboard, Leaderboard)
+    else {
+      if (linkUrl === currentUrl || (currentUrl.includes(link.getAttribute('href')) && link.getAttribute('href') !== '#')) {
+        link.classList.add('active');
+      }
+    }
+  });
+
   initNav();
   setGreeting();
-
+  
   const page = window.EQ_PAGE || 'dashboard';
 
   if (page === 'leaderboard') {
