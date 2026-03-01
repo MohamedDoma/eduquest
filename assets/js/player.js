@@ -107,7 +107,7 @@ function onPlayerReady(event) {
   startTracking();
   // Update watch bar from saved progress
   updateWatchUI(currentLesson.watch_percent);
-  if (isCompleted) showCompletedState();
+  // if (isCompleted) showCompletedState();
 }
 
 function onPlayerStateChange(event) {
@@ -247,7 +247,9 @@ async function saveProgress(pct) {
    LESSON COMPLETE
 ═══════════════════════════════════════════════════ */
 function onLessonComplete() {
-  if (isCompleted) return;
+  // لو الطالب مخلص الدرس ده من زمان وجاي يراجع، مش هنظهر الـ Overlay
+  if (isCompleted && !xpAwarded) return; 
+  
   isCompleted = true;
   if (trackInterval) clearInterval(trackInterval);
   saveProgress(100);
@@ -383,9 +385,9 @@ function switchLesson(item) {
     }
   }
 
-  if (completed) {
-    setTimeout(showCompletedState, 500);
-  }
+  // if (completed) {
+  //   setTimeout(showCompletedState, 500);
+  // }
 
   // Scroll sidebar to active
   item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
