@@ -213,7 +213,7 @@ async function callAI(userMessage) {
   }));
 
   // Try n8n webhook first
-  const webhookUrl = ''; // ← Set your n8n webhook URL here (e.g. https://your-n8n.com/webhook/exam-chat)
+  const webhookUrl = 'https://luhur.app.n8n.cloud/webhook/tutor-chat'; // ← Set your n8n webhook URL here (e.g. https://your-n8n.com/webhook/exam-chat)
   if (webhookUrl) {
     try {
       const res = await fetch(webhookUrl, {
@@ -234,12 +234,36 @@ async function callAI(userMessage) {
         signal: AbortSignal.timeout(8000),
       });
       if (res.ok) {
-        const data = await res.json();
+        const rawText = await res.text();
+        console.log("n8n Raw Response:", rawText);
+        
+        let data = {};
+        try {
+          // 1. نفك الـ JSON الخارجي
+          let parsed = JSON.parse(rawText);
+          
+          // 2. لو هو مصفوفة (Array)، ناخد أول عنصر
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            parsed = parsed[0];
+          }
+          
+          // 3. نفك الـ String اللي جوه الـ output
+          if (parsed.output && typeof parsed.output === 'string') {
+            // ننظف الـ Markdown لو موجود ونفك الـ JSON الداخلي
+            let cleanOutput = parsed.output.replace(/```json/gi, '').replace(/```/g, '').trim();
+            data = JSON.parse(cleanOutput);
+          } else {
+            data = parsed;
+          }
+        } catch (e) {
+          console.error("JSON Parse Error:", e);
+          data.reply = "Error parsing AI response. Check console.";
+        }
+
         return {
-          reply:   data.reply || data.message || data.text || '',
+          reply:   data.reply || "Error: Could not extract reply.",
           correct: data.correct ?? null,
-          score:   data.score  ?? null,
-          done:    data.done   ?? false,
+          done:    data.done === true || data.done === "true",
         };
       }
     } catch (err) {
@@ -495,11 +519,19 @@ function startExam() {
 
   updateProgressDots(1);
 
-  // Send first AI message
-  const firstQ = MockAI.getFirstQuestion(exam.language);
-  setTimeout(() => {
-    appendMessage('assistant', firstQ);
-    setInputEnabled(true);
+  // Send first AI message via n8n
+  setTimeout(async () => {
+    showTyping();
+    try {
+      // إرسال كود سري للـ AI ليبدأ هو المحادثة
+      const aiResult = await callAI("SYSTEM_START_EXAM");
+      hideTyping();
+      appendMessage('assistant', aiResult.reply);
+      setInputEnabled(true);
+    } catch(err) {
+      hideTyping();
+      appendMessage('assistant', "Could not connect to the AI tutor. Please refresh the page.");
+    }
   }, 400);
 
   // Save chat session to server
