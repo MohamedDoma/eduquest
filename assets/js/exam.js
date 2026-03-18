@@ -213,7 +213,7 @@ async function callAI(userMessage) {
   }));
 
   // Try n8n webhook first
-  const webhookUrl = 'https://luhur.app.n8n.cloud/webhook/tutor-chat'; // ← Set your n8n webhook URL here (e.g. https://your-n8n.com/webhook/exam-chat)
+  const webhookUrl = 'https://luhur.app.n8n.cloud/webhook-test/tutor-chat'; // ← Set your n8n webhook URL here (e.g. https://your-n8n.com/webhook/exam-chat)
   if (webhookUrl) {
     try {
       const res = await fetch(webhookUrl, {

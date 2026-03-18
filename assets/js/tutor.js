@@ -90,7 +90,7 @@ async function callAITutor(userMessage) {
   }));
 
   // ⚠️ Different Webhook for Tutor (Change to your n8n URL)
-  const webhookUrl = 'https://luhur.app.n8n.cloud/webhook/tutor-chat'; 
+  const webhookUrl = 'https://luhur.app.n8n.cloud/webhook-test/tutor-chat'; 
   
   if (webhookUrl) {
     try {

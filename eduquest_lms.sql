@@ -124,7 +124,8 @@ INSERT INTO `courses` (`id`, `subject_id`, `teacher_id`, `title`, `description`,
 (7, 3, 4, 'English: Creative Writing & Storytelling', 'Unlock your inner author. Plot structure, character development, dialogue, and writing techniques that wow.', 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&q=80', 9, 'beginner', 250, 1, '2026-02-28 17:08:34'),
 (8, 1, 2, 'Calculus: Limits & Derivatives', 'Conquer calculus step by step. From limits to differentiation rules — make calculus click for you.', 'https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=600&q=80', 12, 'advanced', 500, 1, '2026-02-28 17:08:34'),
 (9, 5, 2, 'Web Development: HTML, CSS & JavaScript', 'Build real websites from scratch! Learn how the internet actually works and create your own pages.', 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80', 11, 'intermediate', 450, 1, '2026-02-28 17:08:34'),
-(10, 2, 3, 'Science: Earth & Space Systems', 'Explore plate tectonics, weather systems, the solar system, and the universe beyond. Space is wild!', 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80', 8, 'beginner', 280, 1, '2026-02-28 17:08:34');
+(10, 2, 3, 'Science: Earth & Space Systems', 'Explore plate tectonics, weather systems, the solar system, and the universe beyond. Space is wild!', 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80', 8, 'beginner', 280, 1, '2026-02-28 17:08:34'),
+(11, 4, 4, 'Malaysian History: From Melaka to Merdeka', 'Explore the major events and figures in Malaysian history, from the Sultanate of Melaka to independence and nation-building.', 'https://www.youtube.com/watch?v=1HRPIlg0QIk', 10, 'intermediate', 310, 1, '2026-03-19 00:00:00');
 
 -- --------------------------------------------------------
 
