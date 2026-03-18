@@ -92,6 +92,11 @@ $lessonTopics = implode(', ', array_column($lessons, 'title'));
     <button class="btn-primary" id="startExamBtn" style="width:100%;padding:16px;font-size:1.05rem;margin-top:8px">
       Start AI Exam 🚀
     </button>
+
+    <a href="tutor.php?course=<?= $courseId ?>" class="btn-secondary" style="display:block; text-align:center; width:100%; padding:16px; font-size:1.05rem; margin-top:8px; background-color: #374151; color: white; border-radius: 8px; text-decoration: none;">
+      💬 Ask AI Tutor (Study Help)
+    </a>
+    
     <a href="course.php?id=<?= $courseId ?>" class="exam-back-link">← Back to Course</a>
   </div>
 </div>

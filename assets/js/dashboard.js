@@ -247,7 +247,10 @@ function renderMyCourses(enrollments) {
             <div class="cpc-percent">${pct}%</div>
           </div>
         </div>
-        <div class="cpc-right">
+        <div class="cpc-right" style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+          <a href="tutor.php?course=${e.course_id}" class="btn-secondary" style="font-size:0.75rem; padding:6px 12px; border-radius:6px; background:rgba(16, 185, 129, 0.1); color:#10b981; border:1px solid rgba(16, 185, 129, 0.3); text-decoration:none;">
+            💬 AI Tutor
+          </a>
           <div class="cpc-exam-badge ${exam ? '' : 'cpc-exam-locked'}">
             ${exam ? '🧠 Exam Ready' : '🔒 Exam'}
           </div>

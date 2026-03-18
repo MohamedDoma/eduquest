@@ -114,7 +114,10 @@ function buildCourseCard(c, i) {
           </div>` : ''}
         <div style="display:flex;align-items:center;justify-content:space-between;margin-top:${enrolled?'4px':'8px'}">
           <span style="font-size:.75rem;color:var(--text-3)">👤 ${c.teacher_name}</span>
-          ${c.exam_unlocked ? '<span class="badge badge-success" style="font-size:.68rem">🧠 Exam Ready</span>' : ''}
+          <div style="display:flex; gap:6px; align-items:center;">
+            ${enrolled ? `<a href="tutor.php?course=${c.id}" class="badge" style="background:rgba(16,185,129,0.1); color:#10b981; text-decoration:none; font-size:.68rem; border:1px solid rgba(16,185,129,0.3);" onclick="event.stopPropagation()">💬 Tutor</a>` : ''}
+            ${c.exam_unlocked ? '<span class="badge badge-success" style="font-size:.68rem">🧠 Exam Ready</span>' : ''}
+          </div>
         </div>
       </div>
     </div>`;
@@ -147,6 +150,9 @@ function openEnrollModal(course) {
     ${enrolled
       ? `<a href="course.php?id=${course.id}" class="btn-primary btn-full" style="font-size:.95rem;padding:14px">
            ${pct > 0 ? '▶ Continue Learning' : '▶ Start Learning'}
+         </a>
+         <a href="tutor.php?course=${course.id}" class="btn-secondary btn-full" style="margin-top:10px; width:100%; justify-content:center; color:#10b981; border-color:rgba(16, 185, 129, 0.4); background:rgba(16, 185, 129, 0.05);">
+           💬 Ask AI Tutor
          </a>
          ${course.exam_unlocked
            ? `<a href="exam.php?course=${course.id}" class="btn-secondary btn-full" style="margin-top:10px;width:100%;justify-content:center">🧠 Take AI Exam</a>`

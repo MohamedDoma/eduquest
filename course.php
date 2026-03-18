@@ -155,7 +155,11 @@ $progress = getCourseProgress($user['id'], $courseId);
             <span class="text-muted text-sm">⚡ +<?= (int)$currentLesson['xp_reward'] ?> XP</span>
           </div>
         </div>
-        <div class="lesson-actions">
+        <div class="lesson-actions" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a href="tutor.php?course=<?= $courseId ?>" class="btn-secondary" style="font-size:.85rem;padding:10px 18px; border-color: #10b981; color: #10b981;">
+            💬 Ask AI Tutor
+          </a>
+          
           <?php if ($progress['is_done'] || $enrollment['exam_unlocked']): ?>
           <a href="exam.php?course=<?= $courseId ?>" class="btn-primary" style="font-size:.85rem;padding:10px 18px;">
             🧠 Take AI Exam
