@@ -53,7 +53,24 @@ $currentLesson = null;
 foreach ($lessons as $l) {
     if (!$l['is_completed']) { $currentLesson = $l; break; }
 }
-if (!$currentLesson && count($lessons)) $currentLesson = $lessons[0];
+if (!$currentLesson && count($lessons)) {
+    $currentLesson = $lessons[0];
+}
+
+$hasLessons = true;
+if (!$currentLesson) {
+    $hasLessons = false;
+    $currentLesson = [
+        'id' => 0,
+        'title' => 'No lessons available',
+        'description' => 'This course has no lessons yet. Check back later.',
+        'video_url' => '',
+        'video_duration' => 0,
+        'xp_reward' => 0,
+        'watch_percent' => 0,
+        'is_completed' => 0,
+    ];
+}
 
 $lessonId = (int)($_GET['lesson'] ?? $currentLesson['id'] ?? 0);
 // Find requested lesson
@@ -254,7 +271,7 @@ $progress = getCourseProgress($user['id'], $courseId);
 <div class="xp-pop" id="xpPop"></div>
 <div class="toast-container" id="toastContainer"></div>
 
-<script src="assets/js/theme.js"></script>
+<script src="/eduquest/assets/js/theme.js"></script>
 <script>
 window.EQ_USER   = <?= json_encode(['id'=>(int)$user['id'],'total_xp'=>(int)$user['total_xp']]) ?>;
 window.EQ_COURSE = <?= json_encode([
@@ -265,17 +282,39 @@ window.EQ_COURSE = <?= json_encode([
   'percent'     => $progress['percent'],
   'exam_unlocked'=> (bool)$enrollment['exam_unlocked'],
 ]) ?>;
+<?php
+$videoUrl = trim($currentLesson['video_url'] ?? '');
+
+// Accept direct URL, iframe embed, or watch URL, then normalize to embed URL.
+if (stripos($videoUrl, '<iframe') !== false) {
+    if (preg_match('/src=["\']([^"\']+)["\']/', $videoUrl, $match)) {
+        $videoUrl = trim($match[1]);
+    }
+}
+
+$youtubeId = null;
+if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=|v\/))([a-zA-Z0-9_-]{11})/', $videoUrl, $m)) {
+    $youtubeId = $m[1];
+}
+if ($youtubeId) {
+    $videoUrl = 'https://www.youtube.com/embed/' . $youtubeId;
+}
+
+$validVideoUrl = filter_var($videoUrl, FILTER_VALIDATE_URL) ? $videoUrl : '';
+?>
+
 window.EQ_LESSON = <?= json_encode([
   'id'           => (int)$currentLesson['id'],
-  'video_url'    => $currentLesson['video_url'],
+  'video_url'    => $validVideoUrl,
   'duration'     => (int)$currentLesson['video_duration'],
   'xp_reward'    => (int)$currentLesson['xp_reward'],
   'watch_percent'=> (int)$currentLesson['watch_percent'],
   'is_completed' => (bool)$currentLesson['is_completed'],
   'title'        => $currentLesson['title'],
+  'invalid_url'  => !$validVideoUrl,
 ]) ?>;
 window.VIDEO_THRESHOLD = <?= VIDEO_COMPLETE_THRESHOLD ?>;
 </script>
-<script src="assets/js/player.js"></script>
+<script src="/eduquest/assets/js/player.js"></script>
 </body>
 </html>

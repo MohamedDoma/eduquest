@@ -56,21 +56,40 @@ function loadYouTubeAPI() {
   document.head.appendChild(tag);
 }
 
-// Extract YouTube video ID from URL
+// Extract YouTube video ID from URL or iframe embed HTML
 function getYouTubeId(url) {
+  if (!url) return null;
+
+  // If user passes iframe code, extract the src URL
+  if (typeof url === 'string' && url.includes('<iframe')) {
+    const srcMatch = url.match(/src=["']([^"']+)["']/);
+    if (srcMatch) {
+      url = srcMatch[1];
+    }
+  }
+
   const m = url.match(/(?:embed\/|v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
   return m ? m[1] : null;
 }
 
 // Called automatically by YouTube API when ready
 window.onYouTubeIframeAPIReady = function () {
+  if (!currentLesson.video_url) {
+    showVideoError('No valid video URL is configured for this lesson. Please check the course admin settings.');
+    return;
+  }
   initPlayer(currentLesson.video_url, currentLesson.watch_percent);
 };
 
 function initPlayer(videoUrl, startPercent = 0) {
+  if (!videoUrl) {
+    showVideoError('Invalid video URL.');
+    return;
+  }
+
   const videoId = getYouTubeId(videoUrl);
   if (!videoId) {
-    showVideoError('Invalid video URL.');
+    showVideoError('Invalid video URL. Use a valid YouTube link (e.g. https://youtu.be/VIDEO_ID).');
     return;
   }
 

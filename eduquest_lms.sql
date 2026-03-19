@@ -125,7 +125,7 @@ INSERT INTO `courses` (`id`, `subject_id`, `teacher_id`, `title`, `description`,
 (8, 1, 2, 'Calculus: Limits & Derivatives', 'Conquer calculus step by step. From limits to differentiation rules — make calculus click for you.', 'https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=600&q=80', 12, 'advanced', 500, 1, '2026-02-28 17:08:34'),
 (9, 5, 2, 'Web Development: HTML, CSS & JavaScript', 'Build real websites from scratch! Learn how the internet actually works and create your own pages.', 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80', 11, 'intermediate', 450, 1, '2026-02-28 17:08:34'),
 (10, 2, 3, 'Science: Earth & Space Systems', 'Explore plate tectonics, weather systems, the solar system, and the universe beyond. Space is wild!', 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80', 8, 'beginner', 280, 1, '2026-02-28 17:08:34'),
-(11, 4, 4, 'Malaysian History: From Melaka to Merdeka', 'Explore the major events and figures in Malaysian history, from the Sultanate of Melaka to independence and nation-building.', 'https://www.youtube.com/watch?v=1HRPIlg0QIk', 10, 'intermediate', 310, 1, '2026-03-19 00:00:00');
+(11, 4, 4, 'Malaysian History: From Melaka to Merdeka', 'Explore the major events and figures in Malaysian history, from the Sultanate of Melaka to independence and nation-building.', 'https://images.unsplash.com/photo-1542345812-1a34a2bb7c22?w=600&q=80', 10, 'intermediate', 310, 1, '2026-03-19 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -270,7 +270,8 @@ INSERT INTO `lessons` (`id`, `course_id`, `title`, `description`, `video_url`, `
 (56, 10, 'Earth\'s Atmosphere & Weather', 'Layers of atmosphere, weather patterns and climate basics.', 'https://www.youtube.com/embed/UXl4Mz3KgIQ', 570, 3, 22, '2026-02-28 17:08:34'),
 (57, 10, 'The Solar System', 'Planets, moons, asteroids, and what makes each world unique.', 'https://www.youtube.com/embed/libKVRa01L8', 640, 4, 25, '2026-02-28 17:08:34'),
 (58, 10, 'Stars, Galaxies & The Universe', 'Life cycle of stars, the Milky Way, and the expanding universe.', 'https://www.youtube.com/embed/HdPzOWlLrbE', 690, 5, 25, '2026-02-28 17:08:34'),
-(59, 10, 'Space Exploration & Future Missions', 'History of space missions and humanity\'s future in space.', 'https://www.youtube.com/embed/WpnIW3tMBkA', 610, 6, 28, '2026-02-28 17:08:34');
+(59, 10, 'Space Exploration & Future Missions', 'History of space missions and humanity\'s future in space.', 'https://www.youtube.com/embed/WpnIW3tMBkA', 610, 6, 28, '2026-02-28 17:08:34'),
+(60, 11, 'Malaysian History: From Melaka to Merdeka', 'Explore the major events and figures in Malaysian history.', 'https://www.youtube.com/watch?v=1HRPIlg0QIk', 720, 1, 35, '2026-03-19 17:08:34');
 
 -- --------------------------------------------------------
 
